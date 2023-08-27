@@ -39,7 +39,7 @@ function CreateForm() {
           groupDes: YUP.string()
             .required("Required!")
             .min(3, "Text should be more than 3 characters")
-            .max(50, "Text should be less than 50 characters"),
+            .max(100, "Text should be less than 50 characters"),
           terms: YUP.array(
             YUP.object({
               termName: YUP.string()
@@ -49,7 +49,7 @@ function CreateForm() {
               termDes: YUP.string()
                 .required("Required!")
                 .min(3, "Text should be more than 3 characters")
-                .max(50, "Text should be less than 50 characters"),
+                .max(100, "Text should be less than 50 characters"),
             })
           ),
         })}
@@ -99,6 +99,7 @@ function CreateForm() {
                           reader.readAsDataURL(event.target.files[0]);
                           reader.onload = () => {
                             setFieldValue("groupImg", reader.result);
+                            
                           };
                         }
                       }
@@ -172,7 +173,7 @@ function CreateForm() {
                               <ErrorMessage name={`terms[${index}].termDes`}></ErrorMessage>
                             </div>
                             {/* -------------------------------Term Image------------------------------------------------ */}
-                            <div className=" p-[1%] bg-red-400">
+                            <div className=" p-[1%] ">
                               <input
                                 type="file"
                                 accept="image/png ,image/jpeg"
@@ -203,38 +204,39 @@ function CreateForm() {
                                   }
                                 }}
                               ></input>
-                              <div className=" w-[100%] h-3  flex flex-wrap">
-                                <div className="grid grid-row-2 bg-pink-400 w-[25%] h-[100%] ">
+                              <div className=" w-[100%] h-[70%] bg-blue-500 flex">
+                                <div className="grid grid-row-2 w-[25%] h-[100%] ">
                                   <button
                                     type="button"
                                     onClick={() => {
                                       focusRef.current[index].focus()
                                     }}
-                                    className="w-[100%] h-[25%] bg-orange-200"
+                                    className="w-[100%] h-[25%]"
                                   >
-                                    <BiEdit className="bg-blue-200 w-[100%] h-[100%]"></BiEdit>
+                                    <BiEdit className=" w-[100%] h-[100%]"></BiEdit>
                                   </button>
                                   <button
                                     type="button"
                                     onClick={() => {
-                                      remove(values.terms[index]);
+                                      remove(index);
                                     }}
                                   >
-                                    {index > 0 ? "delete" : ""}
+                                    {/* {index > 0 ? "delete" : ""} */}
+                                    delete
                                   </button>
                                 </div>
 
-                                <div className="">
+                                <div className="bg-red-500 flex">
                                   <button
                                     type="button"
                                     onClick={() =>
                                       termImgRef.current[index].click()
                                     }
-                                    className={!values.terms[index].termImg?" p-[5%] border border-blue-500 text-blue-500 rounded-md hover:bg-blue-500 hover:text-white shadow-md ":""}
+                                    className={!values.terms[index].termImg?" p-[5%] border border-blue-500 text-blue-500 rounded-md hover:bg-blue-500 hover:text-white shadow-md ":"bg-green-500 h-[100%] "}
                                   >
                                     {values.terms[index].termImg ? (
                                       <PreviewImg
-                                        file={values.terms[index].termImg}
+                                        file={values.terms[index].termImg} className={"min-h-0 "}
                                       ></PreviewImg>
                                     ) : (
                                       "Select image"
