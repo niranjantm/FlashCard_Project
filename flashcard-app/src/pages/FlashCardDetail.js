@@ -1,22 +1,29 @@
-import React, { Fragment,useState } from 'react'
+import React, { Fragment,useState,useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { BsArrowLeft } from "react-icons/bs";
 import { useParams } from 'react-router-dom';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
-import Carousel from '../Components/Carousel';
 
 function FlashCardDetail() {
     const deck = useSelector((state)=>{return state.deck})
     const {index} =useParams();
     const [current,setCurrent] = useState(0)
+    const carouselRef = useRef();
 
-    const previous = (()=>{setCurrent((pre)=> (pre===0?deck[index].terms.lenght-1:current-1))})
-    const next = (()=>{setCurrent((pre)=> (pre===deck[index].terms.lenght-1?0:current+1))})
+    const previous = (()=>{
+      const width = carouselRef.current.clientWidth;
+      console.log("width------>",carouselRef.current.scrollLeft);
+      carouselRef.current.scrollLeft = carouselRef.current.scrollLeft-width;
+    })
+    const next = (()=>{
+      const width = carouselRef.current.clientWidth;
+      carouselRef.current.scrollLeft = carouselRef.current.scrollLeft+width;
+    })
     console.log("index----->",index)
 
   return (
     <Fragment>
-        <div className='flex flex-col bg-blue-300 relative'>
+        <div className='flex flex-col bg-blue-300 '>
         <div className='flex'>
             <div className='w-[]'>
                 <button type='button' className=''><BsArrowLeft size={40}></BsArrowLeft></button>
@@ -41,23 +48,46 @@ function FlashCardDetail() {
               </div>
           </div>
           {/* {------------------------Carousel----------------------------------------------} */}
-          <div className=' min-w-[50px] '>
-          <div className='max-w-lg max-h-[300px]  relative  ' >
-            <div className='flex' style={{transform:`translateX(-${current*100}%)`}}>
+          <div className=' '>
+          <div className='max-w-lg   relative overflow-hidden max-sm:max-w-sm scroll-smooth' ref={carouselRef} >
+            <div className='flex min-w-[100%] max-w-[100%] ' >
+            {deck[index].terms.map((item,i)=>{
+              return(
+                
+                <div className='flex bg-pink-300 min-w-[100%]  gap-2 rounded-lg' >
+                 {console.log(current)}
+                 
+                  {/* -----------------------Image-------------------------------------- */}
+                <div className=''>
+                  <img src={item.termImg} alt='termImg' className='max-w-[200px] max-h-[200px] m-2'></img>
+                  </div>
+{/* ------------------------------------Description------------------------------------------ */}
+                  <div>
+                  <p className='m-2'>{item.termDes}</p>
+                </div>
+                {/* --------------------Navigation Buttons--------------------------------- */}
+                <div className=' absolute flex justify-between   min-w-[100%] bottom-0 '>
+                  <button onClick={previous} type='button' className='  rounded-full shadow-lg bg-white/50 text-gray-500 hover:text-red-500'><BiChevronLeft size={40}></BiChevronLeft></button>
+                  <button onClick={next} type='button' className='  rounded-full shadow-lg bg-white/50 text-gray-500 hover:text-red-500'><BiChevronRight size={40}></BiChevronRight></button>
+                  </div>
+                </div>
+                
+              )
+            })}
             
-                
-                <Carousel>
-                {deck[index].terms.map((item,i)=>{
-              return
-              })}
-                </Carousel>
-                
-             
             </div>
           </div>
           </div>
-          <div className='bg-green-500  '>
-          <p>Hi</p>
+          <div className=' flex flex-col items-center'>
+          <div>
+            <button type='button' className='rounded-lg border border-gray-600 pt-2 pb-2 pl-4 pr-4 shadow-lg bg-slate-200 hover:bg-red-500 mb-3'>Share</button>
+          </div>
+          <div>
+            <button type='button' className='rounded-lg border border-gray-600 pt-2 pb-2 pl-4 pr-4 shadow-lg bg-slate-200 hover:bg-red-500 mb-3'>Download</button>
+          </div>
+          <div>
+            <button type='button'className='rounded-lg border border-gray-600 pt-2 pb-2 pl-4 pr-4 shadow-lg bg-slate-200 hover:bg-red-500 mb-3'>Print</button>
+          </div>
           </div>
 {/* {Image, carousel and share} */}
         
