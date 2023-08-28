@@ -39,7 +39,7 @@ function CreateForm() {
           groupDes: YUP.string()
             .required("Required!")
             .min(3, "Text should be more than 3 characters")
-            .max(100, "Text should be less than 50 characters"),
+            .max(200, "Text should be less than 200 characters"),
           terms: YUP.array(
             YUP.object({
               termName: YUP.string()
@@ -49,7 +49,7 @@ function CreateForm() {
               termDes: YUP.string()
                 .required("Required!")
                 .min(3, "Text should be more than 3 characters")
-                .max(100, "Text should be less than 50 characters"),
+                .max(200, "Text should be less than 200 characters"),
             })
           ),
         })}
