@@ -9,7 +9,7 @@ function MyflashCards() {
   const decks = useSelector((state)=>{return state.deck})
   console.log(decks)
  
-  const dispatch = useDispatch();
+  
   
   const empty  = ()=>{
     return(
@@ -44,7 +44,7 @@ function MyflashCards() {
               <p>{item.terms.length===1?`${item.terms.length} card`:`${item.terms.length} cards`}</p>
             </div>
             <div className='flex justify-center'>
-              <button type='button' onClick={()=>{dispatch(detailAction.flashDetail(index))}} className='border border-red-500 text-red-500 pl-4 pr-4 rounded-lg hover:bg-red-500 hover:text-black'><Link to={"/FlashCardDetail"}>View</Link></button>
+              <button type='button' onClick={()=>{}} className='border border-red-500 text-red-500 pl-4 pr-4 rounded-lg hover:bg-red-500 hover:text-black'><Link to={`/FlashCardDetail/${index}`}>View</Link></button>
               </div>
             </div>
           </div>

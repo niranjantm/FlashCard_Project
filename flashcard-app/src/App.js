@@ -12,7 +12,7 @@ function App() {
     {path:"/",element:<Main></Main>,children:[
       {index:"/",element:<CreateNew></CreateNew>},
       {path:"MyflashCards",element:<MyflashCards></MyflashCards>},
-      {path:"FlashCardDetail",element:<FlashCardDetail></FlashCardDetail>}
+      {path:"FlashCardDetail/:index",element:<FlashCardDetail></FlashCardDetail>}
     ]}
   ])
   return ( <RouterProvider router={router}></RouterProvider>);
