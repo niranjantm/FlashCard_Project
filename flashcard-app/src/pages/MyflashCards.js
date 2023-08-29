@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import PreviewImg from '../Components/PreviewImg';
+
 import FlashCardDetail from './FlashCardDetail';
 import {Link} from "react-router-dom"
 import { detailAction } from '../store/DetailReducer';
@@ -13,7 +13,10 @@ function MyflashCards() {
   
   const empty  = ()=>{
     return(
-      <h1>No Decks</h1>
+      <div className=' w-[100%] p-3'>
+      <h1 className='text-xl font-normal pb-2'>No Decks are Created Yet</h1>
+      <Link to={"/"} className='hover:bg-red-500 border border-gray-600 pl-2 pr-2 pt-1 pb-2 rounded-md'>Click Here to create</Link>
+      </div>
     )
     
     }
@@ -28,7 +31,7 @@ function MyflashCards() {
           <div className=' flex flex-row mb-2'>
             {/* -----------------------Image----------------------------------- */}
             <div className='flex '>
-              <PreviewImg file={item.groupImg} className={"rounded-full  h-20 w-20"}></PreviewImg>
+              <img src={item.groupImg} alt='group Image' className={"rounded-full  h-20 w-20"}></img>
             </div>
             {/* ----------------------Name-------------------------------------- */}
             <div className=' w-[100%] flex justify-center'>

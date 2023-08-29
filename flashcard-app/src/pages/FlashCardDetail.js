@@ -1,7 +1,7 @@
 import React, { Fragment,useState,useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { BsArrowLeft } from "react-icons/bs";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
 function FlashCardDetail() {
@@ -23,10 +23,10 @@ function FlashCardDetail() {
 
   return (
     <Fragment>
-        <div className='flex flex-col bg-blue-300 '>
-        <div className='flex'>
+        <div className='flex flex-col  flex-wrap '>
+        <div className='flex '>
             <div className='w-[]'>
-                <button type='button' className=''><BsArrowLeft size={40}></BsArrowLeft></button>
+                <Link to={"/MyflashCards"} className='' ><BsArrowLeft size={40}></BsArrowLeft></Link>
             </div>
             <div className=' w-[100%] flex flex-col items-center'>
             <p className='font-bold text-2xl mb-2'>{deck[index].groupName}</p>
@@ -34,9 +34,10 @@ function FlashCardDetail() {
             </div>
         </div>
         {/* ----------------------------Image, carousel and share----------------------------- */}
-        <div className='flex flex-row justify-between '>
+        <div className='flex flex-row justify-evenly max-sm:flex max-sm:flex-col max-sm:items-center'>
           {/* ------------Term name buttons to select specific group */}
-          <div className='bg-stone-200   rounded-lg shadow-md  '>
+          <div className='max-sm:w-[50%]'>
+          <div className='bg-stone-200 border border-gray-600  rounded-lg shadow-md '>
               <div className='p-3'>
                 <p className='text-xl pb-1 font-medium'>FlashCards</p>
                 <hr className='border border-gray-500'></hr>
@@ -47,19 +48,20 @@ function FlashCardDetail() {
                 </div>
               </div>
           </div>
+          </div>
           {/* {------------------------Carousel----------------------------------------------} */}
           <div className=' '>
-          <div className='max-w-lg   relative overflow-hidden max-sm:max-w-sm scroll-smooth' ref={carouselRef} >
-            <div className='flex min-w-[100%] max-w-[100%] ' >
+          <div className='max-w-2xl min-h-[100%]  relative border border-gray-600 shadow-lg rounded-lg overflow-hidden max-sm:max-w-sm scroll-smooth' ref={carouselRef} >
+            <div className='flex min-w-[100%] max-w-[100%] min-h-[100%]' >
             {deck[index].terms.map((item,i)=>{
               return(
                 
-                <div className='flex bg-pink-300 min-w-[100%]  gap-2 rounded-lg' >
+                <div className='flex bg-stone-200 min-w-[100%] min-h-[100%] gap-2   max-sm:flex max-sm:flex-col' >
                  {console.log(current)}
                  
                   {/* -----------------------Image-------------------------------------- */}
-                <div className=''>
-                  <img src={item.termImg} alt='termImg' className='max-w-[200px] max-h-[200px] m-2'></img>
+                <div className='  max-sm:flex max-sm:justify-center'>
+                  {item.termImg?<img src={item.termImg} alt='termImg' className='max-w-[200px] max-h-[200px] m-2'></img>:""}
                   </div>
 {/* ------------------------------------Description------------------------------------------ */}
                   <div>
@@ -78,7 +80,7 @@ function FlashCardDetail() {
             </div>
           </div>
           </div>
-          <div className=' flex flex-col items-center'>
+          <div className=' flex flex-col items-center mt-2 max-sm:flex-row max-sm:gap-2'>
           <div>
             <button type='button' className='rounded-lg border border-gray-600 pt-2 pb-2 pl-4 pr-4 shadow-lg bg-slate-200 hover:bg-red-500 mb-3'>Share</button>
           </div>

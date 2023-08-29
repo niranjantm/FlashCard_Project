@@ -3,9 +3,9 @@ import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deckAction } from "../store/FormReducer";
-import PreviewImg from "./PreviewImg";
 import * as YUP from "yup";
 import { BiEdit } from "react-icons/bi";
+import { AiTwotoneDelete as Delete }  from "react-icons/ai"
 
 function CreateForm() {
   const deckState = useSelector((state) => {
@@ -39,7 +39,7 @@ function CreateForm() {
           groupDes: YUP.string()
             .required("Required!")
             .min(3, "Text should be more than 3 characters")
-            .max(200, "Text should be less than 200 characters"),
+            .max(1000, "Text should be less than 1000 characters"),
           terms: YUP.array(
             YUP.object({
               termName: YUP.string()
@@ -49,7 +49,7 @@ function CreateForm() {
               termDes: YUP.string()
                 .required("Required!")
                 .min(3, "Text should be more than 3 characters")
-                .max(200, "Text should be less than 200 characters"),
+                .max(1000, "Text should be less than 1000 characters"),
             })
           ),
         })}
@@ -58,7 +58,7 @@ function CreateForm() {
           return (
             <Form>
               {/* --------------------------------------Group name------------------------------------------- */}
-              <div className="bg-white mr-[15%] ml-[15%] rounded-lg border border-gray-400 shadow-lg flex justify-between max-sm:flex-col ">
+              <div className="bg-white mr-[15%] ml-[15%] rounded-lg border border-gray-400 shadow-lg flex justify-between pr-[2%] max-sm:flex-col ">
                 <div className="flex flex-col  w-[100%] mr-[20%] pl-[5%]">
                   <div className=" flex flex-col w-[60%]   mt-[2%] mb-[2%] ">
                     <label htmlFor="groupName">Create Group</label>
@@ -91,9 +91,9 @@ function CreateForm() {
                     ref={groupImgRef}
                     onChange={(event) => {
                       if (event.target.files[0]) {
-                        if (event.target.files[0].size > 8388608) {
-                          alert("Image must be less than 1 mb");
-                        } else if (event.target.files[0].size <= 8388608) {
+                        // if (event.target.files[0].size > 8388608) {
+                        //   alert("Image must be less than 1 mb");
+                        //  else if (event.target.files[0].size <= 8388608) {
                           console.log("img------>", event.target.files[0]);
                           const reader = new FileReader();
                           reader.readAsDataURL(event.target.files[0]);
@@ -101,7 +101,7 @@ function CreateForm() {
                             setFieldValue("groupImg", reader.result);
                             
                           };
-                        }
+                        
                       }
                     }}
                   ></input>
@@ -110,10 +110,10 @@ function CreateForm() {
                     onClick={() => {
                       groupImgRef.current.click();
                     }}
-                    className=" p-[5%] border border-blue-500 shadow-md  text-blue-500 rounded-md  hover:bg-blue-500 hover:text-white"
+                    className={!values.groupImg?" p-[5%] border border-blue-500 shadow-md  text-blue-500 rounded-md  hover:bg-blue-500 hover:text-white":""}
                   >
                     {values.groupImg ? (
-                      <PreviewImg file={values.groupImg}></PreviewImg>
+                      <img src={values.groupImg} alt="Group Image" className="max-w-[200px]"></img>
                     ) : (
                       "Upload"
                     )}
@@ -183,13 +183,7 @@ function CreateForm() {
                                 }
                                 onChange={(event) => {
                                   if (event.target.files[0]) {
-                                    if (event.target.files[0].size > 8388608) {
-                                      alert(
-                                        "Term image should be less than 1 mb"
-                                      );
-                                    } else if (
-                                      event.target.files[0].size <= 8388608
-                                    ) {
+                                    
                                       const reader = new FileReader();
                                       reader.readAsDataURL(
                                         event.target.files[0]
@@ -200,44 +194,45 @@ function CreateForm() {
                                           reader.result
                                         );
                                       };
-                                    }
+                                    
                                   }
                                 }}
                               ></input>
-                              <div className=" w-[100%] h-[70%] bg-blue-500 flex">
-                                <div className="grid grid-row-2 w-[25%] h-[100%] ">
+                              <div className=" w-[100%]   flex justify-between">
+                                <div className="flex flex-col  min-w-[25%] justify-between items-center gap-3">
                                   <button
                                     type="button"
                                     onClick={() => {
                                       focusRef.current[index].focus()
                                     }}
-                                    className="w-[100%] h-[25%]"
+                                    className=""
                                   >
-                                    <BiEdit className=" w-[100%] h-[100%]"></BiEdit>
+                                    <BiEdit size={35}></BiEdit>
                                   </button>
                                   <button
                                     type="button"
                                     onClick={() => {
+                                      console.log("index img------>",index)
                                       remove(index);
                                     }}
+                    
                                   >
-                                    {/* {index > 0 ? "delete" : ""} */}
-                                    delete
+                                   {index===0?"":<Delete size={35}></Delete>}
                                   </button>
                                 </div>
 
-                                <div className="bg-red-500 flex">
+                                <div className=" flex items-center">
                                   <button
                                     type="button"
                                     onClick={() =>
                                       termImgRef.current[index].click()
                                     }
-                                    className={!values.terms[index].termImg?" p-[5%] border border-blue-500 text-blue-500 rounded-md hover:bg-blue-500 hover:text-white shadow-md ":"bg-green-500 h-[100%] "}
+                                    className={!values.terms[index].termImg?" p-[5%] border border-blue-500 text-blue-500 rounded-md hover:bg-blue-500 hover:text-white  ":" "}
                                   >
                                     {values.terms[index].termImg ? (
-                                      <PreviewImg
-                                        file={values.terms[index].termImg} className={"min-h-0 "}
-                                      ></PreviewImg>
+                                      <img
+                                        src={values.terms[index].termImg} className="min-h-[100px] max-w-[150px] max-h-[100px] rounded-md"
+                                      ></img>
                                     ) : (
                                       "Select image"
                                     )}
@@ -268,7 +263,7 @@ function CreateForm() {
                 <button
                   type="submit"
                   className="border border-red-500 rounded-md pr-[1%] pl-[1%] text-red-500 shadow-md hover:text-black hover:bg-red-500"
-                >
+                  onClick={()=>{console.log("Clicked")}}>
                   Create
                 </button>
               </div>
