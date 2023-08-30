@@ -11,7 +11,7 @@ import FlashCardDetail from "./pages/FlashCardDetail";
 function App() {
   const router = createBrowserRouter([
     {path:"/",element:<Main></Main>,children:[
-      {index:"/",element:<CreateNew></CreateNew>},
+      {index:true,element:<CreateNew></CreateNew>},
       {path:"MyflashCards",element:<MyflashCards></MyflashCards>},
       {path:"FlashCardDetail/:index",element:<FlashCardDetail></FlashCardDetail>}
     ]}
