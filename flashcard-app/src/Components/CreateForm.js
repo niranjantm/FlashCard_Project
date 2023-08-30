@@ -135,7 +135,7 @@ function CreateForm() {
                       <div className="max-h-[200px]  flex  max-sm:justify-center">
                       <img
                         src={values.groupImg}
-                        alt="Group Image"
+                        
                         className="max-w-[200px] min-w-[150px] max-h-[80px] rounded-md border border-gray-800 "
                       ></img>
                       </div>

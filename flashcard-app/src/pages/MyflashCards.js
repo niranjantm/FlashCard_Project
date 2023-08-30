@@ -42,7 +42,7 @@ function MyflashCards() {
                     <div className="flex ">
                       <img
                         src={item.groupImg}
-                        alt="group Image"
+                        
                         className={"rounded-full  h-20 w-20"}
                       ></img>
                     </div>
