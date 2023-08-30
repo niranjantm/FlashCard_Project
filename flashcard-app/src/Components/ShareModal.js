@@ -4,7 +4,7 @@ import { BiSolidCopy as Copy } from "react-icons/bi";
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 function ShareModal({share,onClose}) {
-    let URL = window.location.href;
+    let URL = window.location.href.slice("/")[0];
     
     
   return ReactDOM.createPortal(
