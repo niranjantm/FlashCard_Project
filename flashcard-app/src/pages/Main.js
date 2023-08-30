@@ -9,8 +9,10 @@ export default function Main(){
         <div>
             <h1 className='text-2xl decoration-5 mb-[2%] text-black'>Create FlashCards</h1>
         </div>
-        <hr className='border-black border-spacing-2 m-[1%]'></hr>
+        
+       
         <MainNav></MainNav>
+        <hr className='border-black border-spacing-2 m-[1%]'></hr>
         <Outlet></Outlet>
         </Fragment>
     )
