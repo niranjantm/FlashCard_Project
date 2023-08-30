@@ -26,7 +26,7 @@ function MyflashCards() {
       <div className='grid grid-cols-3 gap-3 pr-4 pl-4 max-sm:flex max-sm:flex-col'> 
       {decks.length===0?empty():decks.map((item,index)=>{
         return(
-          <div className=' bg-stone-100 pb-3 rounded-lg shadow-lg'>
+          <div className=' bg-stone-100 pb-3 rounded-lg shadow-lg max-h-[300px]'>
             {/* ----------------------Parent div for Image and Name-------------------------------- */}
           <div className=' flex flex-row mb-2'>
             {/* -----------------------Image----------------------------------- */}
@@ -39,9 +39,9 @@ function MyflashCards() {
             </div>
           </div>
           {/* --------------------------Description----------------------------- */}
-          <div className='flex flex-col space-y-3' >
-            <div className=' flex justify-center pl-2 '>
-            <p className='text-lg'>{item.groupDes}</p>
+          <div className='flex flex-col space-y-3 h-full' >
+            <div className=' flex justify-center pl-2 max-h-[100px] overflow-y-scroll flex-wrap  '>
+            <p className='text-lg '>{item.groupDes}</p>
             </div>
             <div className='flex justify-center'>
               <p>{item.terms.length===1?`${item.terms.length} card`:`${item.terms.length} cards`}</p>

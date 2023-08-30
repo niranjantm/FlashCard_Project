@@ -6,7 +6,7 @@ import { deckAction } from "../store/FormReducer";
 import * as YUP from "yup";
 import { BiEdit } from "react-icons/bi";
 import { AiTwotoneDelete as Delete }  from "react-icons/ai"
-
+import error from "./Error"
 function CreateForm() {
   const deckState = useSelector((state) => {
     return state.deck;
@@ -33,23 +33,16 @@ function CreateForm() {
         }}
         validationSchema={YUP.object({
           groupName: YUP.string()
-            .required("Required!")
-            .min(3, "Text should be more than 3 characters")
-            .max(20, "Text is too big"),
+            .required("Required!"),
           groupDes: YUP.string()
-            .required("Required!")
-            .min(3, "Text should be more than 3 characters")
-            .max(1000, "Text should be less than 1000 characters"),
+            .required("Required!"),
+            
           terms: YUP.array(
             YUP.object({
               termName: YUP.string()
-                .required("Required!")
-                .min(3, "Text should be more than 3 characters")
-                .max(20, "Text is too big"),
+                .required("Required!"),
               termDes: YUP.string()
                 .required("Required!")
-                .min(3, "Text should be more than 3 characters")
-                .max(1000, "Text should be less than 1000 characters"),
             })
           ),
         })}
@@ -68,7 +61,7 @@ function CreateForm() {
                       id="groupName"
                       className="border border-black rounded-md "
                     ></Field>
-                    <ErrorMessage name="groupName"></ErrorMessage>
+                    <ErrorMessage name="groupName" component={error}></ErrorMessage>
                   </div>
                   {/* ----------------------Group description------------------------------------------------------- */}
                   <div className="flex flex-col w-[100%]   mb-[2%]">
@@ -79,7 +72,7 @@ function CreateForm() {
                       id="groupDes"
                       className="border border-black rounded-md "
                     ></Field>
-                    <ErrorMessage name="groupDes"></ErrorMessage>
+                    <ErrorMessage name="groupDes" component={error}></ErrorMessage>
                   </div>
                 </div>
                 {/* -----------------------------------------Upload image button ------------------------------------------------------------------------------- */}
@@ -158,7 +151,7 @@ function CreateForm() {
                                 );
                               }}
                             </Field>
-                            <ErrorMessage name={`terms[${index}].termName`}></ErrorMessage>
+                            <ErrorMessage name={`terms[${index}].termName`} component={error}></ErrorMessage>
                             </div>
                             {/* --------------------------------Term Description----------------------------------------------- */}
 
@@ -170,7 +163,7 @@ function CreateForm() {
                                 name={`terms[${index}].termDes`}
                                 className="border border-black rounded-md "
                               ></Field>
-                              <ErrorMessage name={`terms[${index}].termDes`}></ErrorMessage>
+                              <ErrorMessage name={`terms[${index}].termDes`} component={error}></ErrorMessage>
                             </div>
                             {/* -------------------------------Term Image------------------------------------------------ */}
                             <div className=" p-[1%] ">
