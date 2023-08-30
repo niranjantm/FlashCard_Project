@@ -4,7 +4,7 @@ import CreateForm from '../Components/CreateForm'
 function CreateNew() {
   return (
     <Fragment>
-        
+        {/* CreateNew page render CreateForm element from component */}
         <CreateForm></CreateForm>
         
        

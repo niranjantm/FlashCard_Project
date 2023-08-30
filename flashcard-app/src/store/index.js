@@ -1,10 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit"
 import deckReducer from "./FormReducer"
-import detailReducer from "./DetailReducer"
+// import the reducer from FormReducer as deckReducer
 
+// using configureStore function to setup reducers
 const store = configureStore(
     {
-        reducer:{deck:deckReducer,detail:detailReducer}
+        reducer:{deck:deckReducer}
     }
 )
 

@@ -4,10 +4,12 @@ import { BiSolidCopy as Copy } from "react-icons/bi";
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 function ShareModal({share,onClose}) {
+  // Here we are coping the current page url by using window.location.href
     let URL = window.location.href;
     
-    
-    
+  // Here we are using CopyToClipboard component provided by react-copy-to-clipboard to copy text to clip board
+  // Here we created a portal to create a pop up when clicked on share button 
+  
   return ReactDOM.createPortal(
     <CopyToClipboard text={URL}>
         <div className='fixed right-0 left-0 top-0 bottom-0 bg-black/50 flex items-center justify-center'>

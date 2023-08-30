@@ -4,17 +4,21 @@ import MainNav from "../Components/MainNav";
 
 
 export default function Main(){
+    // -----This page renders navigation page and create flashcard page------//
     return(
-        <Fragment>
+        <div className="p-4">
         <div>
             <h1 className='text-2xl decoration-5 mb-[2%] text-black'>Create FlashCards</h1>
         </div>
         
-       
+       <div className="pl-3 pr-3 pt-2">
         <MainNav></MainNav>
         <hr className='border-black border-spacing-2 m-[1%]'></hr>
+        </div>
+
+        {/* Using <Outlet> to render child route pages */}
         <Outlet></Outlet>
-        </Fragment>
+        </div>
     )
         
     

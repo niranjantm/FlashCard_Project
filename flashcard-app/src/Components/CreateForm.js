@@ -5,17 +5,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { deckAction } from "../store/FormReducer";
 import * as YUP from "yup";
 import { BiEdit } from "react-icons/bi";
-import { AiTwotoneDelete as Delete }  from "react-icons/ai"
-import error from "./Error"
+import { AiTwotoneDelete as Delete } from "react-icons/ai";
+import error from "./Error";
+
 function CreateForm() {
+  // Using useSelector hook to select the state from redux store
   const deckState = useSelector((state) => {
     return state.deck;
   });
-  console.log("state------>", deckState);
+  // Using useDispatch hook to send the payload to set the state
   const dispatch = useDispatch();
+
+  // Using useRef hook to access the functionalities of an element
   const groupImgRef = useRef();
   const termImgRef = useRef([]);
   const focusRef = useRef([]);
+
+  //---------------- Defining initialValues to serve formik
   const initialValues = {
     groupName: "",
     groupDes: "",
@@ -25,28 +31,27 @@ function CreateForm() {
 
   return (
     <Fragment>
+      {/* Using formik library to manage form state,submit and error handling */}
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { resetForm }) => {
           dispatch(deckAction.addDeck(values));
           resetForm();
         }}
+        // Defining validation schema for error handling
         validationSchema={YUP.object({
-          groupName: YUP.string()
-            .required("Required!"),
-          groupDes: YUP.string()
-            .required("Required!"),
-            
+          groupName: YUP.string().required("Required!"),
+          groupDes: YUP.string().required("Required!"),
+
           terms: YUP.array(
             YUP.object({
-              termName: YUP.string()
-                .required("Required!"),
-              termDes: YUP.string()
-                .required("Required!")
+              termName: YUP.string().required("Required!"),
+              termDes: YUP.string().required("Required!"),
             })
           ),
         })}
       >
+        {/* Using render props method to access formik attributes */}
         {({ values, errors, setFieldValue }) => {
           return (
             <Form>
@@ -55,14 +60,20 @@ function CreateForm() {
                 <div className="flex flex-col  w-[100%] mr-[20%] pl-[5%]">
                   <div className=" flex flex-col w-[60%]   mt-[2%] mb-[2%] ">
                     <label htmlFor="groupName">Create Group</label>
+
                     <Field
                       type="text"
                       name="groupName"
                       id="groupName"
                       className="border border-black rounded-md "
                     ></Field>
-                    <ErrorMessage name="groupName" component={error}></ErrorMessage>
+                    {/* ErrorMessage element provided formik to which i am passing custom error element */}
+                    <ErrorMessage
+                      name="groupName"
+                      component={error}
+                    ></ErrorMessage>
                   </div>
+
                   {/* ----------------------Group description------------------------------------------------------- */}
                   <div className="flex flex-col w-[100%]   mb-[2%]">
                     <label htmlFor="groupDes">Add Description</label>
@@ -72,41 +83,62 @@ function CreateForm() {
                       id="groupDes"
                       className="border border-black rounded-md "
                     ></Field>
-                    <ErrorMessage name="groupDes" component={error}></ErrorMessage>
+                    <ErrorMessage
+                      name="groupDes"
+                      component={error}
+                    ></ErrorMessage>
                   </div>
                 </div>
+
                 {/* -----------------------------------------Upload image button ------------------------------------------------------------------------------- */}
-                <div className="w-[50%] pt-[2%] pb-[2%]  flex items-center max-sm:pl-[5%]">
+                <div className="w-[50%]  pt-[2%] pb-[2%]  flex items-center max-sm:pl-[5%]">
+                  {/* Hidding the input element so that button element can rendered on top of it */}
+                  {/* Using useRef hook to access the functions of input element by button */}
                   <input
                     type="file"
                     accept="image/png, image/jpeg"
                     hidden
                     ref={groupImgRef}
                     onChange={(event) => {
+                      //-- Adding validation to check weather the file is over 1 mb or less
+                      //-- passes the condtion only if file is less than 1 mb
+
                       if (event.target.files[0]) {
-                        // if (event.target.files[0].size > 8388608) {
-                        //   alert("Image must be less than 1 mb");
-                        //  else if (event.target.files[0].size <= 8388608) {
-                          console.log("img------>", event.target.files[0]);
+                        if (event.target.files[0].size > 1000000) {
+                          alert("Image must be less than 1 mb");
+                        } else if (event.target.files[0].size <= 1000000) {
                           const reader = new FileReader();
                           reader.readAsDataURL(event.target.files[0]);
                           reader.onload = () => {
                             setFieldValue("groupImg", reader.result);
-                            
                           };
-                        
+                        }
                       }
                     }}
                   ></input>
+
                   <button
                     type="button"
                     onClick={() => {
                       groupImgRef.current.click();
                     }}
-                    className={!values.groupImg?" p-[5%] border border-blue-500 shadow-md  text-blue-500 rounded-md  hover:bg-blue-500 hover:text-white":""}
+                    className={
+                      // Conditionally rendering the button or Image by checking the value in values.groupImg
+
+                      !values.groupImg
+                        ? " p-[5%] border border-blue-500 shadow-md  text-blue-500 rounded-md  hover:bg-blue-500 hover:text-white"
+                        : ""
+                    }
                   >
                     {values.groupImg ? (
-                      <img src={values.groupImg} alt="Group Image" className="max-w-[200px]"></img>
+                      // Using img tag to render image if present
+                      <div className="max-h-[200px]  flex  max-sm:justify-center">
+                      <img
+                        src={values.groupImg}
+                        alt="Group Image"
+                        className="max-w-[200px] min-w-[150px] max-h-[80px] rounded-md border border-gray-800 "
+                      ></img>
+                      </div>
                     ) : (
                       "Upload"
                     )}
@@ -116,13 +148,19 @@ function CreateForm() {
               {/* ---------------------------------Terms------------------------------------------------------------- */}
 
               <FieldArray name="terms">
+                {/* Using FieldArray component provided by formik to handle array operations in a form */}
+
                 {(props) => {
                   const { push, remove, form } = props;
+                  //----- Destructuring FieldArray attributes
+
                   const { values } = form;
                   console.log(values);
                   return (
                     <div className="bg-white mr-[15%] ml-[15%] rounded-lg border border-gray-400 shadow-lg  pl-[3.5%] pr-[2%] mt-[1%]">
                       {values.terms.map((item, index) => {
+                        // Using map function to itrate over array of term elements
+
                         return (
                           <div
                             key={index}
@@ -130,28 +168,33 @@ function CreateForm() {
                           >
                             {/* -------------------------------------------Term Name------------------------------------------------------------- */}
                             <div>
-                            <Field
-                              name={`terms[${index}].termName`}
-                            >
-                              {(props) => {
-                                const { field, meta, form } = props;
-                                return (
-                                  <div className="flex flex-col  w-[75%]">
-                                    <label htmlFor="termName">Enter Term</label>
-                                    <input
-                                      type="text"
-                                      id="termName"
-                                      {...field}
-                                      ref={(element) => {
-                                        focusRef.current[index] = element;
-                                      }}
-                                      className="border border-black rounded-md "
-                                    />
-                                  </div>
-                                );
-                              }}
-                            </Field>
-                            <ErrorMessage name={`terms[${index}].termName`} component={error}></ErrorMessage>
+                              <Field name={`terms[${index}].termName`}>
+                                {/* Using index attribute provided by map function to access the specific term particulars */}
+
+                                {(props) => {
+                                  const { field, meta, form } = props;
+                                  return (
+                                    <div className="flex flex-col  w-[75%]">
+                                      <label htmlFor="termName">
+                                        Enter Term
+                                      </label>
+                                      <input
+                                        type="text"
+                                        id="termName"
+                                        {...field}
+                                        ref={(element) => {
+                                          focusRef.current[index] = element;
+                                        }}
+                                        className="border border-black rounded-md "
+                                      />
+                                    </div>
+                                  );
+                                }}
+                              </Field>
+                              <ErrorMessage
+                                name={`terms[${index}].termName`}
+                                component={error}
+                              ></ErrorMessage>
                             </div>
                             {/* --------------------------------Term Description----------------------------------------------- */}
 
@@ -163,10 +206,15 @@ function CreateForm() {
                                 name={`terms[${index}].termDes`}
                                 className="border border-black rounded-md "
                               ></Field>
-                              <ErrorMessage name={`terms[${index}].termDes`} component={error}></ErrorMessage>
+                              <ErrorMessage
+                                name={`terms[${index}].termDes`}
+                                component={error}
+                              ></ErrorMessage>
                             </div>
                             {/* -------------------------------Term Image------------------------------------------------ */}
                             <div className=" p-[1%] ">
+                              {/* Applying the same concept as above for group images */}
+
                               <input
                                 type="file"
                                 accept="image/png ,image/jpeg"
@@ -176,7 +224,11 @@ function CreateForm() {
                                 }
                                 onChange={(event) => {
                                   if (event.target.files[0]) {
-                                    
+                                    if (event.target.files[0].size > 1000000) {
+                                      alert("Image must be less than 1 mb");
+                                    } else if (
+                                      event.target.files[0].size <= 1000000
+                                    ) {
                                       const reader = new FileReader();
                                       reader.readAsDataURL(
                                         event.target.files[0]
@@ -187,51 +239,65 @@ function CreateForm() {
                                           reader.result
                                         );
                                       };
-                                    
+                                    }
                                   }
                                 }}
                               ></input>
                               <div className=" w-[100%]   flex justify-between">
                                 <div className="flex flex-col  min-w-[25%] justify-between items-center gap-3">
                                   <button
+                                    // Defining code for focus button
+
                                     type="button"
                                     onClick={() => {
-                                      focusRef.current[index].focus()
+                                      focusRef.current[index].focus();
                                     }}
                                     className=""
                                   >
+                                    {/* Using custom icons as buttons which are provided by react icons */}
+
                                     <BiEdit size={35}></BiEdit>
                                   </button>
                                   <button
+                                    // Defining concept for Delete button
                                     type="button"
                                     onClick={() => {
-                                      console.log("index img------>",index)
+                                      console.log("index img------>", index);
+                                      // Using remove function to delete the term, which is provided as a prop by Field array component
                                       remove(index);
                                     }}
-                    
                                   >
-                                   {index===0?"":<Delete size={35}></Delete>}
+                                    {index === 0 ? (
+                                      ""
+                                    ) : (
+                                      <Delete size={35}></Delete>
+                                    )}
                                   </button>
                                 </div>
 
                                 <div className=" flex items-center">
                                   <button
+                                    // Using this button element to upload a image in input element by using useRef
                                     type="button"
                                     onClick={() =>
                                       termImgRef.current[index].click()
                                     }
-                                    className={!values.terms[index].termImg?" p-[5%] border border-blue-500 text-blue-500 rounded-md hover:bg-blue-500 hover:text-white  ":" "}
+                                    className={
+                                      !values.terms[index].termImg
+                                        ? " p-[5%] border border-blue-500 text-blue-500 rounded-md hover:bg-blue-500 hover:text-white  "
+                                        : " "
+                                    }
                                   >
                                     {values.terms[index].termImg ? (
                                       <img
-                                        src={values.terms[index].termImg} className="min-h-[100px] max-w-[150px] max-h-[100px] rounded-md"
+                                        src={values.terms[index].termImg}
+                                        className="max-h-[80px] max-w-[150px] min-w-[150px] rounded-md border border-gray-800"
                                       ></img>
                                     ) : (
                                       "Select image"
                                     )}
                                   </button>
                                 </div>
-
                               </div>
                             </div>
                           </div>
@@ -239,6 +305,7 @@ function CreateForm() {
                       })}
                       <div>
                         <button
+                          // Adding push functionality to the button provided by Fieldarray component
                           onClick={() => {
                             push({ termName: "", termDes: "", termImg: "" });
                           }}
@@ -253,10 +320,12 @@ function CreateForm() {
                 }}
               </FieldArray>
               <div className="flex w-[100%]  justify-center pt-[1%]">
+                {/* Below button element handles the form submition which is done by providing button type submit */}
                 <button
                   type="submit"
                   className="border border-red-500 rounded-md pr-[1%] pl-[1%] text-red-500 shadow-md hover:text-black hover:bg-red-500"
-                  onClick={()=>{console.log("Clicked")}}>
+                  onClick={() => {}}
+                >
                   Create
                 </button>
               </div>
