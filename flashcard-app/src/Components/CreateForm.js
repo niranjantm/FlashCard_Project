@@ -155,7 +155,7 @@ function CreateForm() {
                   //----- Destructuring FieldArray attributes
 
                   const { values } = form;
-                  console.log(values);
+                  
                   return (
                     <div className="bg-white mr-[15%] ml-[15%] rounded-lg border border-gray-400 shadow-lg  pl-[3.5%] pr-[2%] mt-[1%]">
                       {values.terms.map((item, index) => {
@@ -262,7 +262,7 @@ function CreateForm() {
                                     // Defining concept for Delete button
                                     type="button"
                                     onClick={() => {
-                                      console.log("index img------>", index);
+                                      
                                       // Using remove function to delete the term, which is provided as a prop by Field array component
                                       remove(index);
                                     }}
