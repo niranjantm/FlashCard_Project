@@ -7,8 +7,8 @@ export default function Main(){
     // -----This page renders navigation page and create flashcard page------//
     return(
         <div className="p-4">
-        <div>
-            <h1 className='text-2xl decoration-5 mb-[2%] text-black'>Create FlashCards</h1>
+        <div >
+            <h1 className='text-2xl decoration-5 mb-[2%] text-red-500 font-medium  '>FlashCard Generator</h1>
         </div>
         
        <div className="pl-3 pr-3 pt-2">

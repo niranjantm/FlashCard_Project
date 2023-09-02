@@ -12,7 +12,7 @@ test("Rendering Create flashcard", () => {
         <App></App>
       </Provider>
     );
-    const element = screen.getByText(/Create FlashCards/i);
+    const element = screen.getByText(/FlashCard Generator/i);
     // ------------------------Checking for Create Flashcards Header-------------------------
     expect(element).toBeInTheDocument();
   });
