@@ -55,7 +55,7 @@ function FlashCardDetail() {
           {/* ------------Term name buttons to select specific group */}
 
           <div className="max-sm:w-[50%]">
-            <div className="bg-stone-200 border border-gray-600  rounded-lg shadow-md ">
+            <div className="bg-white border border-gray-600  rounded-lg shadow-md ">
               <div className="p-3">
                 <p className="text-xl pb-1 font-medium">FlashCards</p>
                 <hr className="border border-gray-500"></hr>
@@ -85,7 +85,7 @@ function FlashCardDetail() {
           <div className="relative max-w-xl  flex flex-wrap  rounded-lg gap-1 pb-3">
             {/* Accessing the client width property of the below div so that we can scroll left or right the carousel by using scrollLeft property */}
             <div
-              className="flex max-w-full h-fit bg-stone-200 overflow-hidden border border-gray-600 rounded-lg scroll-smooth"
+              className="flex max-w-full h-fit bg-white min-w-full overflow-hidden border border-gray-600 rounded-lg scroll-smooth"
               ref={carouselRef}
             >
               {deck[index].terms.map((item, i) => {

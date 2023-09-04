@@ -38,14 +38,14 @@ function MyflashCards() {
                  
                   <div className=" flex flex-row mb-2">
                     {/* -----------------------Image----------------------------------- */}
-                    
+                    {!item.groupImg?"":
                     <div className="flex ">
                       <img
                         src={item.groupImg}
                         
                         className={"rounded-full  h-20 w-20"}
                       ></img>
-                    </div>
+                    </div>}
                     {/* ----------------------Name-------------------------------------- */}
                     
                     <div className=" w-[100%] flex justify-center">

@@ -157,7 +157,7 @@ function CreateForm() {
                   const { values } = form;
                   
                   return (
-                    <div className="bg-white mr-[15%] ml-[15%] rounded-lg border border-gray-400 shadow-lg  pl-[3.5%] pr-[2%] mt-[1%]">
+                    <div className="bg-white mr-[15%] ml-[15%] rounded-lg border border-gray-400 shadow-lg  pl-[3.5%] pr-[2%] mt-[1%] pt-2 pb-2">
                       {values.terms.map((item, index) => {
                         // Using map function to itrate over array of term elements
 
