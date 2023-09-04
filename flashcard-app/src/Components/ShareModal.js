@@ -11,7 +11,8 @@ function ShareModal({share,onClose}) {
   // Here we created a portal to create a pop up when clicked on share button 
   
   return ReactDOM.createPortal(
-    <CopyToClipboard text={URL}>
+    <Fragment>
+    
         <div className='fixed right-0 left-0 top-0 bottom-0 bg-black/50 flex items-center justify-center'>
 
         <div className='max-w-lg  bg-slate-50 rounded-md flex flex-col gap-5'>
@@ -32,11 +33,14 @@ function ShareModal({share,onClose}) {
 
             <div className=' flex justify-center p-3 gap-3'>
                 <p className='border border-gray-600 pl-3 pr-3 rounded-md'>{URL}</p>
+                <CopyToClipboard text={URL}>
                 <button><Copy size={30} className='hover:border hover:border-gray-500 rounded-md'></Copy></button>
+                </CopyToClipboard>
             </div>
         </div>
         </div>
-        </CopyToClipboard>,
+        
+        </Fragment>,
     document.getElementById("share")
   )
 }
