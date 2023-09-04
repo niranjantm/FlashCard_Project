@@ -56,7 +56,7 @@ function CreateForm() {
           return (
             <Form>
               {/* --------------------------------------Group name------------------------------------------- */}
-              <div className="bg-white mr-[15%] ml-[15%] rounded-lg border border-gray-400 shadow-lg flex justify-between pr-[2%] max-sm:flex-col ">
+              <div className="bg-white md:mr-[15%] md:ml-[15%] rounded-lg border border-gray-400 shadow-lg flex justify-between pr-[2%] max-sm:flex-col max-sm:mr-[2%] max-sm:ml-[2%] ">
                 <div className="flex flex-col  w-[100%] mr-[20%] pl-[5%]">
                   <div className=" flex flex-col w-[60%]   mt-[2%] mb-[2%] ">
                     <label htmlFor="groupName">Create Group</label>
@@ -157,7 +157,7 @@ function CreateForm() {
                   const { values } = form;
                   
                   return (
-                    <div className="bg-white mr-[15%] ml-[15%] rounded-lg border border-gray-400 shadow-lg  pl-[3.5%] pr-[2%] mt-[1%] pt-2 pb-2">
+                    <div className="bg-white md:mr-[15%] md:ml-[15%] rounded-lg border border-gray-400 shadow-lg  pl-[3.5%] pr-[2%] mt-[1%] pt-2 pb-2 max-sm:mr-[2%] max-sm:ml-[2%]">
                       {values.terms.map((item, index) => {
                         // Using map function to itrate over array of term elements
 
