@@ -5,10 +5,10 @@ It requires a user to enter the name of the deck which has to be created, descri
 ## Directories
 The files have been divided according to their respective folders to make code readibility better for the user.
 The division of folders are shown below.
-### 1. pages
-### 2. Components
-### 3. store
-### 4. test
+#### 1. pages
+#### 2. Components
+#### 3. store
+#### 4. test
 
 ### pages folder
 It contains files which are displayed on the screen like
