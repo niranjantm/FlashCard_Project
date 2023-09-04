@@ -32,7 +32,7 @@ This folder contains redux store for state management.
 ### test
 This folder contains test files which are used to test the app components.
 
-# Built with
+## Built with
 
 <a href='https://react.dev/' ><img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"  height="25" alt='react'></a>
 <a href='https://redux.js.org/' ><img src="https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white"  height="25"></a>
