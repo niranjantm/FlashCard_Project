@@ -10,7 +10,8 @@ body {
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: rgb(246, 231, 214);
+    background: rgb(195,238,174);
+background: radial-gradient(circle, rgba(195,238,174,1) 75%, rgba(167,232,206,1) 91%);
   }
   
   code {

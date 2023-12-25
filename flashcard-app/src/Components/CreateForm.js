@@ -97,6 +97,7 @@ function CreateForm() {
                   <input
                     type="file"
                     accept="image/png, image/jpeg"
+                    name="groupImg"
                     hidden
                     ref={groupImgRef}
                     onChange={(event) => {
@@ -106,6 +107,9 @@ function CreateForm() {
                       if (event.target.files[0]) {
                         if (event.target.files[0].size > 1000000) {
                           alert("Image must be less than 1 mb");
+                        if (event.target.files[0]== null || undefined){
+                          alert("Please upload group image")
+                        }
                         } else if (event.target.files[0].size <= 1000000) {
                           const reader = new FileReader();
                           reader.readAsDataURL(event.target.files[0]);
@@ -323,7 +327,8 @@ function CreateForm() {
                 {/* Below button element handles the form submition which is done by providing button type submit */}
                 <button
                   type="submit"
-                  className="border border-red-500 rounded-md pr-[1%] pl-[1%] text-red-500 shadow-md hover:text-black hover:bg-red-500"
+                  
+                  className="w-[300px] border border-black rounded-lg bg-red-500 py-2 text-lg disabled:opacity-80"
                   onClick={() => {}}
                 >
                   Create

@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import ShareModal from "../Components/ShareModal";
 import { saveAs } from "file-saver";
+import flashcardImg from "../utils/flashcard.png"
 
 function FlashCardDetail() {
   // Using usesSelector hook to get the state from redux store
@@ -32,7 +33,7 @@ function FlashCardDetail() {
 
   return (
     <Fragment>
-      <div className="flex flex-col flex-wrap  ">
+      <div className="flex flex-col flex-wrap">
         <div className="flex ">
           {/* Providing a return to myflashcards link by using custom icons */}
           <div className="">
@@ -43,7 +44,7 @@ function FlashCardDetail() {
               ></BsArrowLeft>
             </Link>
           </div>
-          <div className=" w-[100%]  flex flex-col items-center">
+          <div className=" w-[100%]  flex flex-col items-center m-5">
             {/* Displaying Group name and Group description */}
             <p className="font-bold text-2xl mb-2">{deck[index].groupName}</p>
             <p className="font-normal text-lg">{deck[index].groupDes}</p>
@@ -91,13 +92,13 @@ function FlashCardDetail() {
               {deck[index].terms.map((item, i) => {
                 return (
                   <div
-                    className={`  min-w-full flex flex-col justify-evenly items-center`}
+                    className={`min-w-full flex flex-col justify-evenly items-center `}
                   >
                     <img
-                      src={item.termImg}
+                      src={item.termImg?item.termImg:flashcardImg}
                       className="max-w-lg max-h-[200px] p-3 "
                     ></img>
-                    <p className="pl-3 pr-2">{item.termDes}</p>
+                    <p className="px-5 py-3">{item.termDes}</p>
                   </div>
                 );
               })}
